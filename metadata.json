@@ -1,0 +1,5 @@
+{
+  "name": "Diagnostic Simulator",
+  "description": "A realistic, high-fidelity medical diagnostic simulator. Act as a lead consultant, order tests, manage costs, and deduce the correct diagnosis from differentials in an NHS-styled environment.",
+  "requestFramePermissions": []
+}
