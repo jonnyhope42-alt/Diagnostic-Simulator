@@ -6,15 +6,36 @@ const ai = new GoogleGenAI({ apiKey });
 
 // Helper to generate a random seed-like medical concept
 const getRandomSpecialty = () => {
-  const specialties = ['Respiratory', 'Cardiology', 'Neurology', 'Gastroenterology', 'Endocrinology', 'Infectious Disease'];
+  const specialties = [
+    'Respiratory', 
+    'Cardiology', 
+    'Neurology', 
+    'Gastroenterology', 
+    'Endocrinology', 
+    'Infectious Disease',
+    'Hematology',
+    'Nephrology',
+    'Rheumatology',
+    'Acute General Surgery',
+    'Toxicology',
+    'Immunology',
+    'Vascular',
+    'Urology',
+    'Geriatrics',
+    'Tropical Medicine'
+  ];
   return specialties[Math.floor(Math.random() * specialties.length)];
 };
 
 export const generateMedicalCase = async (): Promise<MedicalCase> => {
   const specialty = getRandomSpecialty();
   const prompt = `
-    Generate a complex, realistic medical case study for a simulation game involving a patient with a ${specialty} presentation.
-    The case must be challenging but solvable.
+    Generate a high-fidelity, complex medical case study for a diagnostic simulation game.
+    The patient presents with a condition related to: ${specialty}.
+    
+    The case should be challenging but solvable with careful investigation. 
+    It can be a rare presentation of a common disease, or a classic presentation of a rare disease.
+    Ensure the differentials cover a broad scope (e.g. mix of medical, surgical, or pyschosomatic if relevant).
     
     You must return a JSON object corresponding to this schema.
     The 'differentials' array must contain exactly 5 strings: 4 incorrect but plausible diagnoses, and 1 string matching the 'trueDiagnosis' exactly.
@@ -108,6 +129,7 @@ export const interpretTestResult = async (
     - If the test is irrelevant to the true diagnosis, return normal/unremarkable findings but keep it realistic for the patient's age.
     - Be brief, clinical, and professional. 
     - Do NOT reveal the diagnosis explicitly, just the findings.
+    - Use British English spelling.
   `;
 
   try {
